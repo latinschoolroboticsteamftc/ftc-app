@@ -1,6 +1,5 @@
 # ftc_app
-
-///////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////
 // This is the latin schools code repository for ftc			         //
 // I expect you to push your changes every time you edit the code.           //
 // Also leave a comment on what you actually did the code.                   //
