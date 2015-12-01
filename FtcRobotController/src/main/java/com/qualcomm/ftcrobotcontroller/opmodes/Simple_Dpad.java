@@ -49,7 +49,6 @@ public class Simple_Dpad extends OpMode {
         frontl.setDirection(DcMotor.Direction.REVERSE);
         frontr.setDirection(DcMotor.Direction.FORWARD);
         backr.setDirection(DcMotor.Direction.FORWARD);
-
         armposition = 0;
         armspeed = 0.1;
         armdelta = true;

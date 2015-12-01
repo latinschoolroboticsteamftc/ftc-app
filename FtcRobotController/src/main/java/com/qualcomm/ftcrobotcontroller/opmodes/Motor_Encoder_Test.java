@@ -11,6 +11,7 @@ public class Motor_Encoder_Test extends OpMode {
     @Override
     public void init() {
         motor_one = hardwareMap.dcMotor.get("motor_one");
+
     }
 
     @Override

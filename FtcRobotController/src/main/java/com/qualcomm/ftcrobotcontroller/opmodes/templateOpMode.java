@@ -3,9 +3,9 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
-
 
 public class templateOpMode extends LinearOpMode {
 
@@ -20,6 +20,31 @@ public class templateOpMode extends LinearOpMode {
     Servo boxr;//Wtf????
     Servo boxl;//Wtf????
     Servo arm;//Wtf????
+    double armposition;
+    boolean armdelta;
+    double armspeed;
+    Encoder frontre;
+    Encoder frontle;
+    Encoder backre;
+    Encoder backle;
+    Encoder heighte;
+    Encoder stringe;
+    Encoder boxae;
+    Encoder boxte;
+    Encoder boxre;
+    Encoder boxle;
+    Encoder arme;
+
+
+    String[] motors =  {"frontr",
+            "frontl",
+            "backr",
+            "backl",
+            "height",
+            "string",
+            "boxa",
+            "boxt"
+    };
 
     /*TODO
     * Maybe create a function that implements all of the simple if else logic. For example, just input the two different
@@ -29,14 +54,45 @@ public class templateOpMode extends LinearOpMode {
     *
     * */
 
+
+    // Encoder class for rotation data.
+
+    public class Encoder {
+        public int CurrentPositionModifier = 0;
+        public int OldPosition = 0;
+
+        protected DcMotor Motor;
+
+        public Encoder(DcMotor motor) {
+            this.Motor = motor;
+        }
+
+        public DcMotor getMotor() {
+            return this.Motor;
+        }
+
+        public void setCurrentPosition(int position) {
+            this.CurrentPositionModifier = position;
+            this.OldPosition = this.Motor.getCurrentPosition();
+        }
+
+        public int getCurrentPosition() {
+            return (this.Motor.getCurrentPosition() - this.OldPosition) + this.CurrentPositionModifier;
+        }
+
+        public void setTargetPosition(int target) {
+            this.Motor.setTargetPosition((this.OldPosition + target) - this.CurrentPositionModifier);
+        }
+
+        public int getTargetPosition() {
+            return (this.Motor.getTargetPosition() - this.OldPosition) + this.CurrentPositionModifier;
+        }
+    }
+
+
     //Check ports.
 
     //impliment smooth for box tilt
-
-    double armposition;
-    boolean armdelta;
-    double armspeed;
-
     public void runOpMode() {
         frontr = hardwareMap.dcMotor.get("frontr");
         frontl = hardwareMap.dcMotor.get("frontl");
@@ -59,22 +115,39 @@ public class templateOpMode extends LinearOpMode {
         boxr = hardwareMap.servo.get("boxr");
         boxl = hardwareMap.servo.get("boxl");
         arm = hardwareMap.servo.get("arm");
+        // No idea what this is
+        telemetry.addData("frontr", frontr.getCurrentPosition());
+        telemetry.addData("frontl", frontl.getCurrentPosition());
+        telemetry.addData("backr" , backr.getCurrentPosition());
+        telemetry.addData("backl" , backl.getCurrentPosition());
+        telemetry.addData("height" , height.getCurrentPosition());
+        telemetry.addData("string" , string.getCurrentPosition());
+        telemetry.addData("boxa" , boxa.getCurrentPosition());
+        telemetry.addData("boxt" , boxt.getCurrentPosition());
+        //setting motors in order to enable to detect the orientation
+        frontr.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        frontl.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        backr.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        backl.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        height.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        string.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        boxa.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        boxt.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
+        // intialising encoder class with the DCmotor in order to get the  data
+        frontre = new Encoder (frontr);
+        frontle = new Encoder (frontl);
+        backre = new Encoder (backr);
+        backle = new Encoder (backl);
+        heighte = new Encoder (height);
+        stringe = new Encoder (string);
+        boxae = new Encoder (boxa);
+        boxte = new Encoder (boxt);
 
-        frontr.setPower(0.3);
-        frontl.setPower(0.3);
-        backr.setPower(0.3);
-        backl.setPower(0.3);
-        try {
-            Thread.sleep(10000);
-        } catch (InterruptedException e) {
-            System.out.println("I was interrupted!");
-            e.printStackTrace();
-        }
-        frontr.setPower(0);
-        frontl.setPower(0);
-        backr.setPower(0);
-        backl.setPower(0);
+
+
     }
+
+
 }
 //USEFUL STUFF
 
