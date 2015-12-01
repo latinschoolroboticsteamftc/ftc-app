@@ -9,17 +9,17 @@ import com.qualcomm.robotcore.util.Range;
 
 public class templateOpMode extends LinearOpMode {
 
-    DcMotor frontr;
-    DcMotor frontl;
-    DcMotor backr;
-    DcMotor backl;
-    DcMotor height;
-    DcMotor string;
-    DcMotor boxa;
-    DcMotor boxt;
-    Servo boxr;
-    Servo boxl;
-    Servo arm;
+    DcMotor frontr;//front right motor
+    DcMotor frontl;//front left motor
+    DcMotor backr;// back right motor
+    DcMotor backl;// back left motor
+    DcMotor height;//Wtf????
+    DcMotor string;//Wtf????
+    DcMotor boxa;//Wtf????
+    DcMotor boxt;//Wtf????
+    Servo boxr;//Wtf????
+    Servo boxl;//Wtf????
+    Servo arm;//Wtf????
 
     /*TODO
     * Maybe create a function that implements all of the simple if else logic. For example, just input the two different

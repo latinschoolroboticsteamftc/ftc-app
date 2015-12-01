@@ -79,4 +79,4 @@
     android:layout_height="wrap_content"
     android:id="@+id/controllers"/>
 </LinearLayout>
-<!-- From: file:/Users/tom/AndroidStudioProjects/ftc_sdk/lib/FtcCommon/src/main/res/layout/file_info.xml --><!-- From: file:/C:/ftc-master/FtcRobotController/build/intermediates/exploded-aar/FtcCommon-release/res/layout/file_info.xml -->
+<!-- From: file:/Users/tom/AndroidStudioProjects/ftc_sdk/lib/FtcCommon/src/main/res/layout/file_info.xml --><!-- From: file:/Users/chris/Code/3rd_party_projects/ftc-app/FtcRobotController/build/intermediates/exploded-aar/FtcCommon-release/res/layout/file_info.xml -->
