@@ -199,11 +199,11 @@ public class Simple_Dpad extends OpMode {
 
 //BOXA THE PITCH OF THE BOX
         float pitchSpeed = 0.15f;
-        if(gamepad2.y)
+        if(gamepad2.b)
         {
             boxa.setPower(pitchSpeed);
         }
-        else if(gamepad2.b)
+        else if(gamepad2.y)
         {
             boxa.setPower(-pitchSpeed);
         }

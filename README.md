@@ -1,10 +1,4 @@
 # ftc_app
-////////////////////////////////////////////////////////////////////////////
-// This is the latin schools code repository for ftc			         //
-// I expect you to push your changes every time you edit the code.           //
-// Also leave a comment on what you actually did the code.                   //
-///////////////////////////////////////////////////////////////////////////////
-
 FTC Android Studio project to create FTC Robot Controller app.
 
 This is the FTC SDK that can be used to create an FTC Robot Controller app, with custom op modes.
