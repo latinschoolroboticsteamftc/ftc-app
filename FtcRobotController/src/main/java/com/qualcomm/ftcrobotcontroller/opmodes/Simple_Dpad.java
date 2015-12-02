@@ -6,20 +6,20 @@ import com.qualcomm.robotcore.util.Range;
 
 
 public class Simple_Dpad extends OpMode {
-    //Motor Declaration.
-    DcMotor frontr;//front right motor
-    DcMotor frontl;//front left motor
-    DcMotor backr;// back right motor
-    DcMotor backl;// back left motor
-    DcMotor height;//Wtf????
-    DcMotor string;//Wtf????
-    DcMotor boxa;//Wtf????
-    DcMotor boxt;//Wtf????
-    Servo boxr;//Wtf????
-    Servo boxl;//Wtf????
-    Servo arm;//Wtf????
 
-    /*TODO
+    DcMotor frontr;
+    DcMotor frontl;
+    DcMotor backr;
+    DcMotor backl;
+    DcMotor height;
+    DcMotor string;
+    DcMotor boxa;
+    DcMotor boxt;
+    Servo boxr;
+    Servo boxl;
+    Servo arm;
+
+    /*TODO 2
     * Maybe create a function that implements all of the simple if else logic. For example, just input the two different
     * types of buttons on teh controller and input the two values it is set to, else will be automatic. Actually nevermind setposition vs setpower to complicated to be worthwhile.
     *
@@ -49,6 +49,7 @@ public class Simple_Dpad extends OpMode {
         frontl.setDirection(DcMotor.Direction.REVERSE);
         frontr.setDirection(DcMotor.Direction.FORWARD);
         backr.setDirection(DcMotor.Direction.FORWARD);
+
         armposition = 0;
         armspeed = 0.1;
         armdelta = true;
@@ -166,11 +167,11 @@ public class Simple_Dpad extends OpMode {
         //STRING
         if(gamepad2.left_bumper)
         {
-            string.setPower(1.0);
+            string.setPower(0.8);
         }
         else if(gamepad2.right_bumper)
         {
-            string.setPower(-1.0);
+            string.setPower(-0.8);
         }
         else
         {
@@ -179,12 +180,12 @@ public class Simple_Dpad extends OpMode {
 
         //HEIGHT
 
-        float height_power = 0.7f;
+        float height_power = 0.8f;
 
 
         if(gamepad2.dpad_down)
         {
-            height.setPower(0.5);
+            height.setPower(0.30);
         }
         else if(gamepad2.dpad_up)
         {
@@ -197,7 +198,7 @@ public class Simple_Dpad extends OpMode {
         }
 
 //BOXA THE PITCH OF THE BOX
-        float pitchSpeed = 0.15f;
+        float pitchSpeed = 0.30f;
         if(gamepad2.b)
         {
             boxa.setPower(pitchSpeed);
@@ -214,7 +215,7 @@ public class Simple_Dpad extends OpMode {
         //BOXT
 
         //TO reverse switch negatives or the left and right triggers.
-        float tilt_power = 0.15f;
+        float tilt_power = 0.2f;
 
 
         if(gamepad2.left_trigger > 0) {
