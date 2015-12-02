@@ -27,24 +27,8 @@ public class templateOpMode extends LinearOpMode {
     Encoder frontle;
     Encoder backre;
     Encoder backle;
-    Encoder heighte;
-    Encoder stringe;
-    Encoder boxae;
-    Encoder boxte;
-    Encoder boxre;
-    Encoder boxle;
-    Encoder arme;
 
 
-    String[] motors =  {"frontr",
-            "frontl",
-            "backr",
-            "backl",
-            "height",
-            "string",
-            "boxa",
-            "boxt"
-    };
 
     /*TODO
     * Maybe create a function that implements all of the simple if else logic. For example, just input the two different
@@ -118,12 +102,12 @@ public class templateOpMode extends LinearOpMode {
         // No idea what this is
         telemetry.addData("frontr", frontr.getCurrentPosition());
         telemetry.addData("frontl", frontl.getCurrentPosition());
-        telemetry.addData("backr" , backr.getCurrentPosition());
-        telemetry.addData("backl" , backl.getCurrentPosition());
-        telemetry.addData("height" , height.getCurrentPosition());
-        telemetry.addData("string" , string.getCurrentPosition());
-        telemetry.addData("boxa" , boxa.getCurrentPosition());
-        telemetry.addData("boxt" , boxt.getCurrentPosition());
+        telemetry.addData("backr", backr.getCurrentPosition());
+        telemetry.addData("backl", backl.getCurrentPosition());
+        telemetry.addData("height", height.getCurrentPosition());
+        telemetry.addData("string", string.getCurrentPosition());
+        telemetry.addData("boxa", boxa.getCurrentPosition());
+        telemetry.addData("boxt", boxt.getCurrentPosition());
         //setting motors in order to enable to detect the orientation
         frontr.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
         frontl.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
@@ -138,12 +122,14 @@ public class templateOpMode extends LinearOpMode {
         frontle = new Encoder (frontl);
         backre = new Encoder (backr);
         backle = new Encoder (backl);
-        heighte = new Encoder (height);
-        stringe = new Encoder (string);
-        boxae = new Encoder (boxa);
-        boxte = new Encoder (boxt);
-
-
+        frontre.setCurrentPosition(0);
+        frontle.setCurrentPosition(0);
+        backre.setCurrentPosition(0);
+        backle.setCurrentPosition(0);
+        frontre.setTargetPosition(3600);
+        frontle.setTargetPosition(3600);
+        backre.setTargetPosition(3600);
+        backle.setTargetPosition(3600);
 
     }
 
