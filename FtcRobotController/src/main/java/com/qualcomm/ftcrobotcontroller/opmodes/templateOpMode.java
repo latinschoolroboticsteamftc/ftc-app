@@ -90,11 +90,10 @@ public class templateOpMode extends LinearOpMode {
         frontl.setDirection(DcMotor.Direction.REVERSE);
         frontr.setDirection(DcMotor.Direction.FORWARD);
         backr.setDirection(DcMotor.Direction.FORWARD);
-
+        height.setDirection(DcMotor.Direction.REVERSE);
         armposition = 0;
         armspeed = 0.1;
         armdelta = true;
-
         //SERVOS
         boxr = hardwareMap.servo.get("boxr");
         boxl = hardwareMap.servo.get("boxl");
@@ -122,14 +121,19 @@ public class templateOpMode extends LinearOpMode {
         frontle = new Encoder (frontl);
         backre = new Encoder (backr);
         backle = new Encoder (backl);
-        frontre.setCurrentPosition(0);
-        frontle.setCurrentPosition(0);
-        backre.setCurrentPosition(0);
-        backle.setCurrentPosition(0);
-        frontre.setTargetPosition(3600);
-        frontle.setTargetPosition(3600);
-        backre.setTargetPosition(3600);
-        backle.setTargetPosition(3600);
+
+        frontre.setCurrentPosition(10);
+        frontle.setCurrentPosition(10);
+        backre.setCurrentPosition(10);
+        backle.setCurrentPosition(180);
+        frontr.setPower(1);
+        frontl.setPower(1);
+        backr.setPower(1);
+        backl.setPower(1);
+        frontre.setTargetPosition(100);
+        frontle.setTargetPosition(100);
+        backre.setTargetPosition(100);
+        backle.setTargetPosition(100);
 
     }
 

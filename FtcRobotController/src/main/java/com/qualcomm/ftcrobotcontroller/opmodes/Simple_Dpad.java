@@ -49,7 +49,7 @@ public class Simple_Dpad extends OpMode {
         frontl.setDirection(DcMotor.Direction.REVERSE);
         frontr.setDirection(DcMotor.Direction.FORWARD);
         backr.setDirection(DcMotor.Direction.FORWARD);
-
+        height.setDirection(DcMotor.Direction.REVERSE);
         armposition = 0;
         armspeed = 0.1;
         armdelta = true;
@@ -165,11 +165,11 @@ public class Simple_Dpad extends OpMode {
 
 
         //STRING
-        if(gamepad2.left_bumper)
+        if(gamepad1.left_bumper)
         {
             string.setPower(0.8);
         }
-        else if(gamepad2.right_bumper)
+        else if(gamepad1.right_bumper)
         {
             string.setPower(-0.8);
         }
@@ -185,16 +185,18 @@ public class Simple_Dpad extends OpMode {
 
         if(gamepad2.dpad_down)
         {
-            height.setPower(0.30);
+            height.setPower(0.05);
         }
         else if(gamepad2.dpad_up)
         {
             height.setPower(-height_power);
         }
-        else
+        else if (gamepad1.x)
         {
-            //THIS MAKES SURE IT DOESNT FALL DOWN
-            height.setPower(-0.09);
+            height.setPower(1);
+        }
+        else {
+            height.setPower(-0.2);
         }
 
 //BOXA THE PITCH OF THE BOX
@@ -232,11 +234,11 @@ public class Simple_Dpad extends OpMode {
         //ARM
         if(gamepad2.a)
         {
-            arm.setPosition(1.0);
+            arm.setPosition(0.0);
         }
         else
         {
-            arm.setPosition(0.0);
+            arm.setPosition(1.0);
         }
 
 
