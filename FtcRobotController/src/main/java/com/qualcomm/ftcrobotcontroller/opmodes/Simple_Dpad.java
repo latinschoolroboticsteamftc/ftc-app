@@ -18,7 +18,9 @@ public class Simple_Dpad extends OpMode {
     Servo boxr;
     Servo boxl;
     Servo arm;
-
+    double mainPower = 1;
+    double driveTrainPower = 1;
+    double armPower = .5;
     /*TODO 2
     * Maybe create a function that implements all of the simple if else logic. For example, just input the two different
     * types of buttons on teh controller and input the two values it is set to, else will be automatic. Actually nevermind setposition vs setpower to complicated to be worthwhile.
@@ -45,10 +47,10 @@ public class Simple_Dpad extends OpMode {
         string = hardwareMap.dcMotor.get("string");
         boxa = hardwareMap.dcMotor.get("boxa");
         boxt = hardwareMap.dcMotor.get("boxt");
-        backl.setDirection(DcMotor.Direction.REVERSE);
-        frontl.setDirection(DcMotor.Direction.REVERSE);
-        frontr.setDirection(DcMotor.Direction.FORWARD);
-        backr.setDirection(DcMotor.Direction.FORWARD);
+        backl.setDirection(DcMotor.Direction.FORWARD);
+        frontl.setDirection(DcMotor.Direction.FORWARD);
+        frontr.setDirection(DcMotor.Direction.REVERSE);
+        backr.setDirection(DcMotor.Direction.REVERSE);
         height.setDirection(DcMotor.Direction.REVERSE);
         armposition = 0;
         armspeed = 0.1;
@@ -140,6 +142,12 @@ public class Simple_Dpad extends OpMode {
             backr.setPower(0.0);
         }
 
+        gamepad1.setJoystickDeadzone(0);
+        frontl.setPower(mainPower * driveTrainPower * power * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+        backl.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y+gamepad1.left_stick_x));
+
+        frontr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
+        backr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
         /**
          * GAMEPAD 2:
          *
@@ -185,7 +193,7 @@ public class Simple_Dpad extends OpMode {
 
         if(gamepad2.dpad_down)
         {
-            height.setPower(0.05);
+            height.setPower(0.8);
         }
         else if(gamepad2.dpad_up)
         {
@@ -194,9 +202,6 @@ public class Simple_Dpad extends OpMode {
         else if (gamepad1.x)
         {
             height.setPower(1);
-        }
-        else {
-            height.setPower(-0.2);
         }
 
 //BOXA THE PITCH OF THE BOX

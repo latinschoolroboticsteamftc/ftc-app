@@ -1,11 +1,9 @@
 package com.qualcomm.ftcrobotcontroller.opmodes;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.Range;
 
 public class templateOpMode extends LinearOpMode {
 
@@ -60,17 +58,11 @@ public class templateOpMode extends LinearOpMode {
             this.OldPosition = this.Motor.getCurrentPosition();
         }
 
-        public int getCurrentPosition() {
-            return (this.Motor.getCurrentPosition() - this.OldPosition) + this.CurrentPositionModifier;
-        }
 
         public void setTargetPosition(int target) {
             this.Motor.setTargetPosition((this.OldPosition + target) - this.CurrentPositionModifier);
         }
 
-        public int getTargetPosition() {
-            return (this.Motor.getTargetPosition() - this.OldPosition) + this.CurrentPositionModifier;
-        }
     }
 
 

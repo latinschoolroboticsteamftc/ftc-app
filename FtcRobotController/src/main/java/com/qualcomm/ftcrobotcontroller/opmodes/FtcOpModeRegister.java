@@ -55,14 +55,14 @@ public class FtcOpModeRegister implements OpModeRegister {
      * If two or more oop modes are registered with the same name, the app will display an error.
      */
 
-    manager.register("I", NullOp.class);
-    manager.register("Hope", K9TeleOp.class);
-    manager.register ("This", PushBotAuto.class);
-    manager.register ("Works", PushBotManual.class);
     manager.register ("Simple_Dpad", Simple_Dpad.class);
-      manager.register ("joysticks", joysticks.class);
-    manager.register ("Motor_Encoder_Test", Motor_Encoder_Test.class);
+    manager.register ("forwardBlock", forwardBlock.class);
+    manager.register ("joysticks", joysticks.class);
     manager.register ("templateOpMode", templateOpMode.class);
+    manager.register ("forwardBlocksame", forwardBlocksame.class);
+    manager.register ("david", david.class);
+            manager.register("forwardBlockopp", forwardBlock.class);
+
 
     /*
      * Uncomment any of the following lines if you want to register an op mode.
