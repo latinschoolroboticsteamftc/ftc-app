@@ -20,7 +20,7 @@ public class Simple_Dpad extends OpMode {
     Servo arm;
     double mainPower = 1;
     double driveTrainPower = 1;
-    double armPower = .5;
+
     /*TODO 2
     * Maybe create a function that implements all of the simple if else logic. For example, just input the two different
     * types of buttons on teh controller and input the two values it is set to, else will be automatic. Actually nevermind setposition vs setpower to complicated to be worthwhile.
