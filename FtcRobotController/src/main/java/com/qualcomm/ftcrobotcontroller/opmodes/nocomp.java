@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
-public class Simple_Dpad extends OpMode {
+public class nocomp extends OpMode {
 
     DcMotor frontr;
     DcMotor frontl;
@@ -143,11 +143,11 @@ public class Simple_Dpad extends OpMode {
         }
 
         /** gamepad1.setJoystickDeadzone(0);
-        *frontl.setPower(mainPower * driveTrainPower * power * (gamepad1.left_stick_y + gamepad1.left_stick_x));
-        *backl.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y+gamepad1.left_stick_x));
+         *frontl.setPower(mainPower * driveTrainPower * power * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+         *backl.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y+gamepad1.left_stick_x));
 
-        frontr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
-        backr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
+         frontr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
+         backr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
          **/
         /**
          * GAMEPAD 2:
@@ -194,24 +194,24 @@ public class Simple_Dpad extends OpMode {
 
         if(gamepad2.dpad_down)
         {
-            height.setPower(0.5);
+            height.setPower(-0.3);
         }
         else if(gamepad2.dpad_up)
         {
-            height.setPower(-height_power);
+            height.setPower(height_power);
         }
         else if (gamepad1.x)
         {
-            height.setPower(1.0);
+            height.setPower(-1.0);
         }
         else
         {
-            height.setPower(-0.14);
+            height.setPower(0);
         }
 
 //BOXA THE PITCH OF THE BOX
         float pitchSpeed = 0.30f;
-        if(gamepad2.b)
+        if(gamepad2.a)
         {
             boxa.setPower(pitchSpeed);
         }
@@ -227,7 +227,7 @@ public class Simple_Dpad extends OpMode {
         //BOXT
 
         //TO reverse switch negatives or the left and right triggers.
-        float tilt_power = 0.2f;
+        float tilt_power = 0.14f;
 
 
         if(gamepad2.left_trigger > 0) {
@@ -242,7 +242,7 @@ public class Simple_Dpad extends OpMode {
         }
 
         //ARM
-        if(gamepad2.a)
+        if(gamepad2.b)
         {
             arm.setPosition(0.0);
         }

@@ -62,7 +62,9 @@ public class FtcOpModeRegister implements OpModeRegister {
     manager.register ("forwardBlocksame", forwardBlocksame.class);
     manager.register ("david", david.class);
     manager.register ("PushBotAuto", PushBotAuto.class);
+    manager.register ("Stupid_Auto", Stupid_Auto.class);
             manager.register("forwardBlockopp", forwardBlock.class);
+    manager.register("nocomp", nocomp.class);
 
 
     /*

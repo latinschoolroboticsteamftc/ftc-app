@@ -5,7 +5,27 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.Servo;
 
-public class templateOpMode extends LinearOpMode {
+import android.media.MediaPlayer;
+import android.util.Log;
+
+import com.qualcomm.ftcrobotcontroller.FtcRobotControllerActivity;
+import com.qualcomm.ftcrobotcontroller.R;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.exception.RobotCoreException;
+import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
+import com.qualcomm.robotcore.hardware.DeviceInterfaceModule;
+import com.qualcomm.robotcore.hardware.DigitalChannelController;
+import com.qualcomm.robotcore.hardware.GyroSensor;
+import com.qualcomm.robotcore.hardware.LightSensor;
+//import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.robocol.Telemetry;
+
+public class templateOpMode extends LinearOpMode implements driveBase{
 
     DcMotor frontr;//front right motor
     DcMotor frontl;//front left motor
@@ -21,126 +41,96 @@ public class templateOpMode extends LinearOpMode {
     double armposition;
     boolean armdelta;
     double armspeed;
-    Encoder frontre;
-    Encoder frontle;
-    Encoder backre;
-    Encoder backle;
+         private static final String LOG_TAG = templateOpMode.class.getSimpleName();
+            //    ColorSensor color;
+            //  OpticalDistanceSensor distance
+            ElapsedTime elapsedTime;
+            public void startMotors(double power1, double power2, double power3, double power4) {
+                backr.setPower(power1);
+                backl.setPower(power2);
+                frontl.setPower(power3);
+                frontr.setPower(power4);
+            }
+            public void first() {
+                frontr = hardwareMap.dcMotor.get("frontr");
+                frontl = hardwareMap.dcMotor.get("frontl");
+                backr = hardwareMap.dcMotor.get("backr");
+                backl = hardwareMap.dcMotor.get("backl");
+                height = hardwareMap.dcMotor.get("height");
+                string = hardwareMap.dcMotor.get("string");
+                boxa = hardwareMap.dcMotor.get("boxa");
+                boxt = hardwareMap.dcMotor.get("boxt");
+                backl.setDirection(DcMotor.Direction.REVERSE);
+                frontl.setDirection(DcMotor.Direction.REVERSE);
+                frontr.setDirection(DcMotor.Direction.FORWARD);
+                backr.setDirection(DcMotor.Direction.FORWARD);
+                height.setDirection(DcMotor.Direction.REVERSE);
+                armposition = 0;
+                armspeed = 0.1;
+                armdelta = true;
+                //SERVOS
+                boxr = hardwareMap.servo.get("boxr");
+                boxl = hardwareMap.servo.get("boxl");
+                arm = hardwareMap.servo.get("arm");
 
+            }
+            public int getEncoderAvg() {
+                return (Math.abs(backl.getCurrentPosition()) + Math.abs(backr.getCurrentPosition()) + Math.abs(frontl.getCurrentPosition()) + Math.abs(frontr.getCurrentPosition())) / 4;
+            }
+            public void stopMotors() {
+                backr.setPower(0);
+                backl.setPower(0);
+                frontl.setPower(0);
+                frontr.setPower(0);
+            }
+            public void resetEncoders() {
+                backl.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+                backr.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+                frontr.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+                frontl.setMode(DcMotorController.RunMode.RESET_ENCODERS);
+            }
+            public void getEncoderValues() {
+                telemetry.addData("backl", backl.getCurrentPosition());
 
+                telemetry.addData("frontr", frontr.getCurrentPosition());
 
-    /*TODO
-    * Maybe create a function that implements all of the simple if else logic. For example, just input the two different
-    * types of buttons on teh controller and input the two values it is set to, else will be automatic. Actually nevermind setposition vs setpower to complicated to be worthwhile.
-    *
-    *
-    *
-    * */
+                telemetry.addData("backr", backr.getCurrentPosition());
 
+                telemetry.addData("frontl", frontl.getCurrentPosition());
+            }
+            public void getTime() {
+                telemetry.addData("time", elapsedTime.time());
+            }
+            @Override
+            public void runOpMode() {
+                first();
+                try {
+                    waitOneFullHardwareCycle();
+                } catch (InterruptedException e) {
+                    Log.i(LOG_TAG, e.toString());
+                }
+                try {
+                    waitForStart();
+                } catch (InterruptedException e) {
+                    Log.i(LOG_TAG, e.toString());
+                }
+                int distance1 = 5000; // TODO: 11/19/2015 CORRECT VALUES
+                int distance2 = 7075; // TODO: 11/19/2015 CORRECT VALUES
+                int distance3 = 12750; // TODO: 11/19/2015 CORRECT VALUES
+                int currentEncoder = 0;
+                int nullEncoder = 0;
+                while (currentEncoder < distance1) {
+                    startMotors(-1, 1, 1, -1);
+                }
 
-    // Encoder class for rotation data.
-
-    public class Encoder {
-        public int CurrentPositionModifier = 0;
-        public int OldPosition = 0;
-
-        protected DcMotor Motor;
-
-        public Encoder(DcMotor motor) {
-            this.Motor = motor;
+                stopMotors();
+                resetEncoders();
+                nullEncoder = 0;
+                elapsedTime.reset();
+                stopMotors();
+                backl.close();
+                frontl.close();
+                backr.close();
+                frontr.close();
+            }
         }
-
-        public DcMotor getMotor() {
-            return this.Motor;
-        }
-
-        public void setCurrentPosition(int position) {
-            this.CurrentPositionModifier = position;
-            this.OldPosition = this.Motor.getCurrentPosition();
-        }
-
-
-        public void setTargetPosition(int target) {
-            this.Motor.setTargetPosition((this.OldPosition + target) - this.CurrentPositionModifier);
-        }
-
-    }
-
-
-    //Check ports.
-
-    //impliment smooth for box tilt
-    public void runOpMode() {
-        frontr = hardwareMap.dcMotor.get("frontr");
-        frontl = hardwareMap.dcMotor.get("frontl");
-        backr = hardwareMap.dcMotor.get("backr");
-        backl = hardwareMap.dcMotor.get("backl");
-        height = hardwareMap.dcMotor.get("height");
-        string = hardwareMap.dcMotor.get("string");
-        boxa = hardwareMap.dcMotor.get("boxa");
-        boxt = hardwareMap.dcMotor.get("boxt");
-        backl.setDirection(DcMotor.Direction.REVERSE);
-        frontl.setDirection(DcMotor.Direction.REVERSE);
-        frontr.setDirection(DcMotor.Direction.FORWARD);
-        backr.setDirection(DcMotor.Direction.FORWARD);
-        height.setDirection(DcMotor.Direction.REVERSE);
-        armposition = 0;
-        armspeed = 0.1;
-        armdelta = true;
-        //SERVOS
-        boxr = hardwareMap.servo.get("boxr");
-        boxl = hardwareMap.servo.get("boxl");
-        arm = hardwareMap.servo.get("arm");
-        // No idea what this is
-        telemetry.addData("frontr", frontr.getCurrentPosition());
-        telemetry.addData("frontl", frontl.getCurrentPosition());
-        telemetry.addData("backr", backr.getCurrentPosition());
-        telemetry.addData("backl", backl.getCurrentPosition());
-        telemetry.addData("height", height.getCurrentPosition());
-        telemetry.addData("string", string.getCurrentPosition());
-        telemetry.addData("boxa", boxa.getCurrentPosition());
-        telemetry.addData("boxt", boxt.getCurrentPosition());
-        //setting motors in order to enable to detect the orientation
-        frontr.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        frontl.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        backr.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        backl.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        height.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        string.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        boxa.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        boxt.setChannelMode(DcMotorController.RunMode.RUN_TO_POSITION);
-        // intialising encoder class with the DCmotor in order to get the  data
-        frontre = new Encoder (frontr);
-        frontle = new Encoder (frontl);
-        backre = new Encoder (backr);
-        backle = new Encoder (backl);
-
-        frontre.setCurrentPosition(10);
-        frontle.setCurrentPosition(10);
-        backre.setCurrentPosition(10);
-        backle.setCurrentPosition(180);
-        frontr.setPower(1);
-        frontl.setPower(1);
-        backr.setPower(1);
-        backl.setPower(1);
-        frontre.setTargetPosition(100);
-        frontle.setTargetPosition(100);
-        backre.setTargetPosition(100);
-        backle.setTargetPosition(100);
-
-    }
-
-
-}
-//USEFUL STUFF
-
-//        DcMotor motorRight;
-//        DcMotor motorLeft;
-//        motorRight = hardwareMap.dcMotor.get("motor_2");
-//        motorLeft.setDirection(DcMotor.Direction.REVERSE);
-//        motor_Front_Left.setPower(1.0);
-
-//        float throttle = -gamepad1.left_stick_y;
-//        float direction = gamepad1.left_stick_x;
-//        float right = throttle - direction;
-//        gamepad1.a
-//telemetry.addData("Text", "*** Robot Data***");
