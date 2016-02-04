@@ -4,10 +4,6 @@ package com.qualcomm.ftcrobotcontroller.opmodes;
 //
 // PushBotAuto
 //
-
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-
 /**
  * Provide a basic autonomous operational mode that uses the left and right
  * drive motors and associated encoders implemented using a state machine for
@@ -31,46 +27,15 @@ public class PushBotAuto extends PushBotTelemetry
     public PushBotAuto ()
 
     {
-        DcMotor frontr;
-        DcMotor frontl;
-        DcMotor backr;
-        DcMotor backl;
-        DcMotor height;
-        DcMotor string;
-        DcMotor boxa;
-        DcMotor boxt;
-        Servo boxr;
-        Servo boxl;
-        Servo arm;
-        double mainPower = 1;
-        double driveTrainPower = 1;
+        //
+        // Initialize base classes.
+        //
+        // All via self-construction.
 
-        double armposition;
-        boolean armdelta;
-        double armspeed;
-
-        frontr = hardwareMap.dcMotor.get("frontr");
-        frontl = hardwareMap.dcMotor.get("frontl");
-        backr = hardwareMap.dcMotor.get("backr");
-        backl = hardwareMap.dcMotor.get("backl");
-        height = hardwareMap.dcMotor.get("height");
-        string = hardwareMap.dcMotor.get("string");
-        boxa = hardwareMap.dcMotor.get("boxa");
-        boxt = hardwareMap.dcMotor.get("boxt");
-        backl.setDirection(DcMotor.Direction.FORWARD);
-        frontl.setDirection(DcMotor.Direction.FORWARD);
-        frontr.setDirection(DcMotor.Direction.REVERSE);
-        backr.setDirection(DcMotor.Direction.REVERSE);
-        height.setDirection(DcMotor.Direction.REVERSE);
-        armposition = 0;
-        armspeed = 0.1;
-        armdelta = true;
-
-
-        //SERVOS
-        boxr = hardwareMap.servo.get("boxr");
-        boxl = hardwareMap.servo.get("boxl");
-        arm = hardwareMap.servo.get("arm");
+        //
+        // Initialize class members.
+        //
+        // All via self-construction.
 
     } // PushBotAuto
 
@@ -188,7 +153,7 @@ public class PushBotAuto extends PushBotTelemetry
         //
         case 3:
             run_using_encoders ();
-            set_drive_power (-1.0f,  1.0f);
+            set_drive_power (-1.0f, 1.0f);
             if (have_drive_encoders_reached (2880, 2880))
             {
                 reset_drive_encoders ();
