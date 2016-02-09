@@ -18,6 +18,8 @@ public class Simple_Dpad extends OpMode {
     Servo boxr;
     Servo boxl;
     Servo arm;
+    Servo leftplow;
+    Servo rightplow;
     double mainPower = 1;
     double driveTrainPower = 1;
 
@@ -60,7 +62,8 @@ public class Simple_Dpad extends OpMode {
         boxr = hardwareMap.servo.get("boxr");
         boxl = hardwareMap.servo.get("boxl");
         arm = hardwareMap.servo.get("arm");
-
+        leftplow = hardwareMap.servo.get("leftplow");
+        rightplow = hardwareMap.servo.get("rightplow");
     }
 
 
@@ -208,7 +211,15 @@ public class Simple_Dpad extends OpMode {
         {
             height.setPower(-0.14);
         }
-
+        if(gamepad1.y) {
+            leftplow.setPosition(1.0);
+            rightplow.setPosition(1.0);
+        }
+        else
+        {
+            leftplow.setPosition(0.0);
+            rightplot.setPosition(0.0);
+        }
 //BOXA THE PITCH OF THE BOX
         float pitchSpeed = 0.30f;
         if(gamepad2.b)
@@ -244,11 +255,11 @@ public class Simple_Dpad extends OpMode {
         //ARM
         if(gamepad2.a)
         {
-            arm.setPosition(0.0);
+            arm.setPosition(1.0);
         }
         else
         {
-            arm.setPosition(1.0);
+            arm.setPosition(0.0);
         }
 
 
