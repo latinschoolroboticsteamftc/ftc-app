@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
-public class nocomp extends OpMode {
+public class Simple_Dpad extends OpMode {
 
     //Move
     DcMotor frontr;

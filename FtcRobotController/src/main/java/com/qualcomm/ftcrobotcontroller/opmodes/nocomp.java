@@ -7,17 +7,23 @@ import com.qualcomm.robotcore.util.Range;
 
 public class nocomp extends OpMode {
 
+    //Move
     DcMotor frontr;
     DcMotor frontl;
     DcMotor backr;
     DcMotor backl;
+
+    //Arm
     DcMotor height;
     DcMotor string;
     DcMotor boxa;
     DcMotor boxt;
-    Servo boxr;
-    Servo boxl;
+
     Servo arm;
+    Servo climberr;           //Right extendable flipper
+    Servo climberl;           //Left extendable flipper
+    Servo climberrelease;     //On the arm
+
     double mainPower = 1;
     double driveTrainPower = 1;
 
@@ -57,10 +63,12 @@ public class nocomp extends OpMode {
         armdelta = true;
 
         //SERVOS
-        boxr = hardwareMap.servo.get("boxr");
-        boxl = hardwareMap.servo.get("boxl");
+        //boxr = hardwareMap.servo.get("boxr");
+        //boxl = hardwareMap.servo.get("boxl");
         arm = hardwareMap.servo.get("arm");
-
+        climberr = hardwareMap.servo.get("climberr");
+        climberl = hardwareMap.servo.get("climberl");
+        climberrelease = hardwareMap.servo.get("climberrelease");
     }
 
 
@@ -77,13 +85,6 @@ public class nocomp extends OpMode {
         telemetry.addData("", backr.getCurrentPosition());
 
 
-        //Victory Dance
-
-//        if(gamepad1.right_bumper)
-//        {
-//            frontl.setDirection(DcMotor.Direction.FORWARD);
-//            frontr.setDirection(DcMotor.Direction.REVERSE);
-//        }
 
         if(gamepad1.back)
         {
@@ -229,7 +230,7 @@ public class nocomp extends OpMode {
         //TO reverse switch negatives or the left and right triggers.
         float tilt_power = 0.14f;
 
-
+        /*
         if(gamepad2.left_trigger > 0) {
             boxt.setPower(-tilt_power*gamepad2.left_trigger);
         }
@@ -240,19 +241,33 @@ public class nocomp extends OpMode {
         {
             boxt.setPower(0.0);
         }
+        */
 
-        //ARM
+        //ARM SERVO
         if(gamepad2.b)
-        {
-            arm.setPosition(0.0);
-        }
-        else
-        {
+            arm.setPosition(-0.0);
+
+        if(gamepad2.x)
             arm.setPosition(1.0);
-        }
 
+        //RIGHT AND LEFT CLIMBER TRIGGER FLIPPERS
+        if(gamepad1.right_trigger + gamepad2.right_trigger > 0)
+            climberr.setPosition(0.0);
+        else
+            climberr.setPosition(1.0);
 
-        //SERVO
+        if(gamepad1.left_trigger + gamepad2.left_trigger > 0)
+            climberl.setPosition(1.0);
+        else
+            climberl.setPosition(0.0);
+
+        //CLIMBER RELEASE ON ARM
+        if(gamepad2.right_bumper)
+            climberrelease.setPosition(0.0);
+        else
+            climberrelease.setPosition(1.0);
+
+        /*//SERVO
         if(gamepad2.start) {
             boxr.setPosition(0.0);
             boxl.setPosition(1.0);
@@ -261,6 +276,6 @@ public class nocomp extends OpMode {
         {
             boxr.setPosition(1.0);
             boxl.setPosition(0.0);
-        }
+        }*/
     }
 }
