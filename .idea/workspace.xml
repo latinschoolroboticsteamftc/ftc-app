@@ -10,10 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f4145daa-88fa-4b57-b493-95e5316004fb" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FtcRobotController/build/intermediates/classes/debug/com/qualcomm/ftcrobotcontroller/opmodes/FtcOpModeRegister.class" afterPath="$PROJECT_DIR$/FtcRobotController/build/intermediates/classes/debug/com/qualcomm/ftcrobotcontroller/opmodes/FtcOpModeRegister.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Simple_Dpad.java" afterPath="$PROJECT_DIR$/FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Simple_Dpad.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="ftc-app.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,8 +54,8 @@
       <file leaf-file-name="Simple_Dpad.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Simple_Dpad.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.88502675">
-              <caret line="65" column="55" selection-start-line="65" selection-start-column="55" selection-end-line="65" selection-end-column="55" />
+            <state vertical-scroll-proportion="1.1818181">
+              <caret line="280" column="1" selection-start-line="280" selection-start-column="1" selection-end-line="280" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -2241,8 +2238,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FtcRobotController/src/main/java/com/qualcomm/ftcrobotcontroller/opmodes/Simple_Dpad.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.88502675">
-          <caret line="65" column="55" selection-start-line="65" selection-start-column="55" selection-end-line="65" selection-end-column="55" />
+        <state vertical-scroll-proportion="1.1818181">
+          <caret line="280" column="1" selection-start-line="280" selection-start-column="1" selection-end-line="280" selection-end-column="1" />
           <folding />
         </state>
       </provider>

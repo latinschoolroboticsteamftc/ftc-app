@@ -5,21 +5,25 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 
-public class Simple_Dpad extends OpMode {
+public class nocomp extends OpMode {
 
+    //Move
     DcMotor frontr;
     DcMotor frontl;
     DcMotor backr;
     DcMotor backl;
+
+    //Arm
     DcMotor height;
     DcMotor string;
     DcMotor boxa;
     DcMotor boxt;
-    Servo boxr;
-    Servo boxl;
+
     Servo arm;
-    Servo leftplow;
-    Servo rightplow;
+    Servo climberr;           //Right extendable flipper
+    Servo climberl;           //Left extendable flipper
+    Servo climberrelease;     //On the arm
+
     double mainPower = 1;
     double driveTrainPower = 1;
 
@@ -59,11 +63,12 @@ public class Simple_Dpad extends OpMode {
         armdelta = true;
 
         //SERVOS
-        boxr = hardwareMap.servo.get("boxr");
-        boxl = hardwareMap.servo.get("boxl");
+        //boxr = hardwareMap.servo.get("boxr");
+        //boxl = hardwareMap.servo.get("boxl");
         arm = hardwareMap.servo.get("arm");
-        leftplow = hardwareMap.servo.get("leftplow");
-        rightplow = hardwareMap.servo.get("rightplow");
+        climberr = hardwareMap.servo.get("climberr");
+        climberl = hardwareMap.servo.get("climberl");
+        climberrelease = hardwareMap.servo.get("climberrelease");
     }
 
 
@@ -80,13 +85,6 @@ public class Simple_Dpad extends OpMode {
         telemetry.addData("", backr.getCurrentPosition());
 
 
-        //Victory Dance
-
-//        if(gamepad1.right_bumper)
-//        {
-//            frontl.setDirection(DcMotor.Direction.FORWARD);
-//            frontr.setDirection(DcMotor.Direction.REVERSE);
-//        }
 
         if(gamepad1.back)
         {
@@ -146,11 +144,11 @@ public class Simple_Dpad extends OpMode {
         }
 
         /** gamepad1.setJoystickDeadzone(0);
-        *frontl.setPower(mainPower * driveTrainPower * power * (gamepad1.left_stick_y + gamepad1.left_stick_x));
-        *backl.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y+gamepad1.left_stick_x));
+         *frontl.setPower(mainPower * driveTrainPower * power * (gamepad1.left_stick_y + gamepad1.left_stick_x));
+         *backl.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y+gamepad1.left_stick_x));
 
-        frontr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
-        backr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
+         frontr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
+         backr.setPower(mainPower * driveTrainPower * power *(gamepad1.left_stick_y-gamepad1.left_stick_x));
          **/
         /**
          * GAMEPAD 2:
@@ -197,32 +195,24 @@ public class Simple_Dpad extends OpMode {
 
         if(gamepad2.dpad_down)
         {
-            height.setPower(0.5);
+            height.setPower(-0.3);
         }
         else if(gamepad2.dpad_up)
         {
-            height.setPower(-height_power);
+            height.setPower(height_power);
         }
         else if (gamepad1.x)
         {
-            height.setPower(1.0);
+            height.setPower(-1.0);
         }
         else
         {
-            height.setPower(-0.14);
+            height.setPower(0);
         }
-        if(gamepad1.y) {
-            leftplow.setPosition(1.0);
-            rightplow.setPosition(1.0);
-        }
-        else
-        {
-            leftplow.setPosition(0.0);
-            rightplot.setPosition(0.0);
-        }
+
 //BOXA THE PITCH OF THE BOX
         float pitchSpeed = 0.30f;
-        if(gamepad2.b)
+        if(gamepad2.a)
         {
             boxa.setPower(pitchSpeed);
         }
@@ -238,9 +228,9 @@ public class Simple_Dpad extends OpMode {
         //BOXT
 
         //TO reverse switch negatives or the left and right triggers.
-        float tilt_power = 0.2f;
+        float tilt_power = 0.14f;
 
-
+        /*
         if(gamepad2.left_trigger > 0) {
             boxt.setPower(-tilt_power*gamepad2.left_trigger);
         }
@@ -251,19 +241,33 @@ public class Simple_Dpad extends OpMode {
         {
             boxt.setPower(0.0);
         }
+        */
 
-        //ARM
-        if(gamepad2.a)
-        {
+        //ARM SERVO
+        if(gamepad2.b)
+            arm.setPosition(-0.0);
+
+        if(gamepad2.x)
             arm.setPosition(1.0);
-        }
+
+        //RIGHT AND LEFT CLIMBER TRIGGER FLIPPERS
+        if(gamepad1.right_trigger + gamepad2.right_trigger > 0)
+            climberr.setPosition(0.0);
         else
-        {
-            arm.setPosition(0.0);
-        }
+            climberr.setPosition(1.0);
 
+        if(gamepad1.left_trigger + gamepad2.left_trigger > 0)
+            climberl.setPosition(1.0);
+        else
+            climberl.setPosition(0.0);
 
-        //SERVO
+        //CLIMBER RELEASE ON ARM
+        if(gamepad2.right_bumper)
+            climberrelease.setPosition(0.0);
+        else
+            climberrelease.setPosition(1.0);
+
+        /*//SERVO
         if(gamepad2.start) {
             boxr.setPosition(0.0);
             boxl.setPosition(1.0);
@@ -272,6 +276,6 @@ public class Simple_Dpad extends OpMode {
         {
             boxr.setPosition(1.0);
             boxl.setPosition(0.0);
-        }
+        }*/
     }
 }
